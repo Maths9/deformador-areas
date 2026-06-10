@@ -915,7 +915,7 @@ input[type="number"] {
         gap: var(--space-md);
     }
 
-    .formula-arrow {
+    .formula-arrow svg {
         transform: rotate(90deg);
     }
 
