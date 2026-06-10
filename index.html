@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deformador de Áreas - Visualização interativa interdisciplinar da substituição de variáveis, conectando matemática, física, estatística e o cotidiano.">
+    <title>Deformador de Áreas — Abordagem Interdisciplinar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <!-- Math.js for symbolic computation -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background particles -->
+    <canvas id="bg-particles"></canvas>
+
+    <!-- Header -->
+    <header id="main-header">
+        <div class="header-content">
+            <div class="header-icon">∫</div>
+            <div class="header-text">
+                <h1>O Deformador de Áreas</h1>
+                <p class="subtitle">Uma Visão Interdisciplinar da Substituição de Variáveis: Da Matemática ao Cotidiano</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Math inputs bar -->
+    <section id="math-inputs">
+        <div class="inputs-glass">
+            <div class="preset-group">
+                <select id="preset-select" class="preset-select">
+                    <option value="math">📐 Matemática Pura</option>
+                    <option value="physics">⚛️ Física (Energia)</option>
+                    <option value="stats">📊 Estatística (PDF)</option>
+                    <option value="traffic">🚗 Dia a Dia (Trânsito/Consumo)</option>
+                    <option value="health">💊 Dia a Dia (Saúde/Remédio)</option>
+                </select>
+            </div>
+            <div class="input-inline-group">
+                <label for="input-u">u(x) = </label>
+                <input type="text" id="input-u" value="x^2" class="math-input" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="input-inline-group">
+                <label for="input-g">g(u) = </label>
+                <input type="text" id="input-g" value="cos(u)" class="math-input" autocomplete="off" spellcheck="false">
+            </div>
+            <button id="btn-apply-math" class="btn btn-primary btn-sm" title="Atualizar funções">
+                Atualizar Funções
+            </button>
+        </div>
+    </section>
+
+    <!-- Main formula bar -->
+    <section id="formula-bar">
+        <div class="formula-glass">
+            <div class="formula-item" id="formula-x">
+                <span class="formula-label">Espaço x</span>
+                <span class="formula-math" id="math-x"></span>
+            </div>
+            <div class="formula-arrow">
+                <svg width="48" height="24" viewBox="0 0 48 24">
+                    <defs>
+                        <linearGradient id="arrow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#7c3aed"/>
+                            <stop offset="100%" style="stop-color:#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M4 12 L36 12 M30 6 L38 12 L30 18" stroke="url(#arrow-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="arrow-label" id="arrow-label-u">u = u(x)</span>
+            </div>
+            <div class="formula-item" id="formula-u">
+                <span class="formula-label">Espaço u</span>
+                <span class="formula-math" id="math-u"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Canvas area -->
+    <main id="canvas-container">
+        <div class="canvas-panel" id="panel-x">
+            <div class="panel-header">
+                <div class="panel-badge badge-x">Espaço x</div>
+                <div class="panel-info" id="area-x">Área ≈ <span>—</span></div>
+            </div>
+            <canvas id="canvas-x" width="700" height="450"></canvas>
+            <div class="axis-labels">
+                <span class="axis-label-x">x</span>
+                <span class="axis-label-y" id="label-fx">f(x)</span>
+            </div>
+        </div>
+
+        <div class="canvas-divider">
+            <div class="divider-line"></div>
+            <div class="divider-icon" id="morph-indicator">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="14" stroke="url(#arrow-grad)" stroke-width="2" opacity="0.5"/>
+                    <path d="M12 16 L20 16 M17 12 L21 16 L17 20" stroke="url(#arrow-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="canvas-panel" id="panel-u">
+            <div class="panel-header">
+                <div class="panel-badge badge-u">Espaço u</div>
+                <div class="panel-info" id="area-u">Área ≈ <span>—</span></div>
+            </div>
+            <canvas id="canvas-u" width="700" height="450"></canvas>
+            <div class="axis-labels">
+                <span class="axis-label-x">u</span>
+                <span class="axis-label-y" id="label-gu">g(u)</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Controls -->
+    <section id="controls">
+        <div class="controls-glass">
+            
+            <div class="control-group">
+                <label for="num-rects">Retângulos (n)</label>
+                <div class="slider-container">
+                    <input type="range" id="num-rects" min="4" max="60" value="12" step="1">
+                    <span class="slider-value" id="num-rects-val">12</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="anim-speed">Velocidade</label>
+                <div class="slider-container">
+                    <input type="range" id="anim-speed" min="0.2" max="3" value="1" step="0.1">
+                    <span class="slider-value" id="anim-speed-val">1×</span>
+                </div>
+            </div>
+
+            <div class="control-buttons">
+                <button id="btn-play" class="btn btn-primary" title="Iniciar animação de morphing">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path id="play-icon" d="M6 4 L16 10 L6 16 Z"/>
+                    </svg>
+                    <span id="btn-play-text">Animar</span>
+                </button>
+                <button id="btn-reset" class="btn btn-secondary" title="Resetar visualização">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9a6 6 0 1 1 1.5 4" stroke-linecap="round"/>
+                        <path d="M3 14 L3 9 L8 9" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Resetar
+                </button>
+                <button id="btn-toggle-du" class="btn btn-accent" title="Destacar o fator du = 2x·dx">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="9" r="7"/>
+                        <path d="M9 5 L9 9 L12 12" stroke-linecap="round"/>
+                    </svg>
+                    Destacar du
+                </button>
+            </div>
+
+            <div class="control-group">
+                <label for="interval-a">Intervalo [a, b]</label>
+                <div class="interval-inputs">
+                    <div class="input-wrap">
+                        <span class="input-label">a</span>
+                        <input type="number" id="interval-a" value="0" step="0.1" min="-2" max="3">
+                    </div>
+                    <div class="input-wrap">
+                        <span class="input-label">b</span>
+                        <input type="number" id="interval-b" value="1.2" step="0.1" min="-2" max="3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theory panel -->
+    <section id="theory-panel">
+        <div class="theory-glass">
+            <div class="theory-header">
+                <h2>🌐 Conexões Interdisciplinares: O Papel do Diferencial du</h2>
+                <button id="toggle-theory" class="btn-icon" aria-label="Expandir teoria">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 8 L10 12 L14 8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="theory-content" id="theory-content">
+                <!-- Content injected by app.js based on preset -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating area comparison -->
+    <div id="area-comparison" class="hidden">
+        <div class="comparison-glass">
+            <div class="comparison-title">Áreas Iguais!</div>
+            <div class="comparison-values">
+                <span id="comp-area-x">—</span>
+                <span class="comparison-eq">=</span>
+                <span id="comp-area-u">—</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
