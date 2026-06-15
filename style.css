@@ -449,9 +449,18 @@ canvas#canvas-u:hover {
 .control-group label {
     font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     color: var(--text-muted);
     font-weight: 600;
+}
+
+.control-hint {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    margin-top: -2px;
+    font-weight: 500;
+    max-width: 140px;
+    line-height: 1.25;
 }
 
 .slider-container {

@@ -42,6 +42,8 @@
     // ──────────────────────────────────────
     const PRESETS = {
         math: {
+            uLabel: "Substituição u(x) =",
+            gLabel: "Nova Função g(u) =",
             u: "x^2",
             g: "cos(u)",
             a: 0,
@@ -65,6 +67,8 @@
             `
         },
         physics: {
+            uLabel: "Energia Potencial u(x) =",
+            gLabel: "Força Residual g(u) =",
             u: "x^2",
             g: "e^(-u)",
             a: 0,
@@ -87,6 +91,8 @@
             `
         },
         stats: {
+            uLabel: "Nova Variável u(x) =",
+            gLabel: "Densidade PDF g(u) =",
             u: "x^2",
             g: "e^(-u)",
             a: 0,
@@ -108,6 +114,8 @@
             `
         },
         traffic: {
+            uLabel: "Distância km u(x) =",
+            gLabel: "Consumo L/km g(u) =",
             u: "x^2 + 0.5*x",
             g: "2/(u+1)",
             a: 0,
@@ -131,6 +139,8 @@
             `
         },
         health: {
+            uLabel: "Sangue Filtrado u(x) =",
+            gLabel: "Concentração g(u) =",
             u: "x^2",
             g: "15*e^(-u)",
             a: 0,
@@ -149,6 +159,54 @@
                 <div class="theory-card">
                     <h3>🎯 Dose Acumulada</h4>
                     <p>A substituição prova que a quantidade de remédio que sai do corpo (a Área) não depende apenas do relógio (tempo \\( x \\)), mas da <em>eficiência do rim</em> (o fator \\( du \\)). Um retângulo largo de tempo pode ser encolhido se o rim estiver trabalhando lentamente naquela hora!</p>
+                </div>
+            `
+        },
+        economy: {
+            uLabel: "Inflação/Juros u(x) =",
+            gLabel: "Poder de Compra g(u) =",
+            u: "e^(0.6*x)",
+            g: "80/u",
+            a: 0,
+            b: 2.0,
+            rects: 15,
+            getTheoryHTML: (ms) => `
+                <div class="theory-card">
+                    <h3>📈 O Profissional: Economista Financeiro</h3>
+                    <p>O eixo \\( x \\) é o Tempo em Anos. Devido aos Juros Compostos e à Inflação, o "Tamanho do Dinheiro" (Fator de Capitalização) cresce de forma exponencial: \\( u = ${ms.texU} \\).</p>
+                    <p>O poder de compra real de uma nota que você guardou cai inversamente: \\( g(u) = ${ms.texG} \\).</p>
+                </div>
+                <div class="theory-card">
+                    <h3>💸 O Fator de Inflação (Jacobiano)</h3>
+                    <p>No espaço X (esquerda), os retângulos têm a mesma largura (1 ano). Mas o dinheiro não se comporta de forma linear ao longo do tempo! A derivada da inflação, \\( du = \\left(${ms.texDu}\\right)dx \\), é o que estica o tecido financeiro.</p>
+                </div>
+                <div class="theory-card">
+                    <h3>🎯 A Riqueza Real</h3>
+                    <p>No espaço U (direita), vemos a economia do ponto de vista do <em>Dinheiro</em>, não do relógio. Os retângulos finais são muito mais largos, porque nos últimos anos os juros compostos inflaram os números brutos absurdamente, compensando a queda vertical do poder de compra. A área total (sua Riqueza Real acumulada) permanece exata e matematicamente protegida!</p>
+                </div>
+            `
+        },
+        marketing: {
+            uLabel: "Cliques Gerados u(x) =",
+            gLabel: "Lucro/Clique g(u) =",
+            u: "4*log(x+1)",
+            g: "cos(u/3)^2 + 0.5",
+            a: 0,
+            b: 4.0,
+            rects: 16,
+            getTheoryHTML: (ms) => `
+                <div class="theory-card">
+                    <h3>🎯 O Profissional: Cientista de Dados (Marketing)</h3>
+                    <p>O eixo \\( x \\) é o seu Orçamento (Milhares de Reais investidos em anúncios). Mas o número de Cliques gerados \\( u \\) não sobe para sempre; ele sofre <strong>Saturação Logarítmica</strong>: \\( u = ${ms.texU} \\).</p>
+                    <p>O lucro extraído por clique varia conforme o nicho alcançado: \\( g(u) = ${ms.texG} \\).</p>
+                </div>
+                <div class="theory-card">
+                    <h3>📉 O Custo de Aquisição Marginal</h3>
+                    <p>No espaço X (esquerda), gastar R$ 1000 a mais sempre parece ter a mesma "largura". Mas a derivada de novos clientes \\( du = \\left(${ms.texDu}\\right)dx \\) despenca drasticamente quanto mais dinheiro você investe!</p>
+                </div>
+                <div class="theory-card">
+                    <h3>💰 O Lucro Total da Campanha</h3>
+                    <p>No espaço U (direita), os retângulos finais ficam espremidos! Isso prova visualmente o pesadelo do Marketing Digital: retângulos enormes de orçamento extra (Espaço X) são violentamente achatados pelo Jacobiano em míseros milímetros de cliques novos (Espaço U), destruindo a ilusão de crescimento infinito.</p>
                 </div>
             `
         }
@@ -1153,6 +1211,11 @@
         if (!preset) return;
         currentPresetId = presetId;
         
+        const lblU = document.getElementById('label-input-u');
+        const lblG = document.getElementById('label-input-g');
+        if (lblU && preset.uLabel) lblU.textContent = preset.uLabel;
+        if (lblG && preset.gLabel) lblG.textContent = preset.gLabel;
+
         document.getElementById('input-u').value = preset.u;
         document.getElementById('input-g').value = preset.g;
         inputA.value = preset.a;
@@ -1180,7 +1243,7 @@
         var libsTimer = setInterval(function () {
             if (window.katex && window.math) {
                 clearInterval(libsTimer);
-                updateMathFunctions();
+                loadPreset('math');
             }
         }, 100);
 

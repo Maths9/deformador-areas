@@ -24,10 +24,12 @@ Durante essa viagem geométrica interativa, o usuário observa que:
 
 ## ✨ Principais Funcionalidades
 - **Entrada Dinâmica de Funções**: O usuário não é refém de exemplos fixos. É possível digitar qualquer substituição $u(x)$ e função alvo $g(u)$. O sistema calcula as derivadas simbolicamente em tempo real.
-- **Cenários Interdisciplinares (Presets)**: O simulador não se prende apenas à matemática abstrata. Através de um menu interativo, o usuário pode carregar problemas do mundo real, como:
+- **Cenários Interdisciplinares (Presets)**: O simulador não se prende apenas à matemática abstrata. Através de um menu interativo, o usuário pode carregar problemas do mundo real de diversas profissões, como:
+  - **Economia e Finanças**: Compreender o derretimento do poder de compra devido aos juros compostos e inflação.
+  - **Marketing Digital**: Visualizar a saturação do Custo de Aquisição de Cliente e o retorno marginal decrescente.
   - **Física (Energia)**: Visualizar o cálculo de Trabalho de uma mola não-linear.
   - **Estatística (Probabilidade)**: Entender a deformação da Função Densidade de Probabilidade (PDF) na transformação de variáveis aleatórias.
-  - **Dia a Dia (Trânsito e Saúde)**: Modelar o consumo de combustível por quilômetro vs tempo, ou a filtração de medicamentos nos rins, provando como o Jacobiano $du$ age na vida real.
+  - **Engenharia e Saúde**: Modelar o consumo de combustível por quilômetro vs tempo, ou a filtração de medicamentos nos rins, provando como o Jacobiano $du$ age na vida real.
 - **Renderização Matemática Impecável**: Todo o texto algébrico, desde as etiquetas dos gráficos até os painéis de texto explicativos (que mudam de acordo com o cenário escolhido), é renderizado dinamicamente com **KaTeX**, proporcionando uma tipografia clássica de livros de matemática.
 - **Hover Analítico**: Passar o mouse sobre qualquer retângulo da simulação abre um "Raio-X" daquela fatia exata de área, dissecando seus valores em tempo real.
 - **Interface *Light Theme* Premium**: Cores vibrantes, alta legibilidade, elementos de *glassmorphism* (vidro translúcido) e um layout espaçoso para um ambiente de aprendizado moderno e sem distrações.
