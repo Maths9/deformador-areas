@@ -1,40 +1,30 @@
-# O Deformador de Áreas: Da Geometria Complexa ao Retângulo Padrão
+# Deformador de Áreas (Substituição Interativa)
 
-## 🎯 O Problema
-No estudo do Cálculo Diferencial e Integral, um dos obstáculos mais comuns para os estudantes é a transição da álgebra para a intuição geométrica. Quando aprendemos o **Teorema da Substituição de Variáveis** (ou Regra da Substituição / Substituição em *u*), somos ensinados a manipular símbolos: definimos $u = g(x)$, calculamos a derivada para encontrar o diferencial $du = g'(x)dx$ e magicamente simplificamos a integral.
+Um simulador web educacional projetado para ensinar o **Teorema da Substituição em Integrais**, focando primariamente em **Leigos e Estudantes de Exatas e Humanas**. Ao invés de apresentar a Matemática como um fim em si mesmo, este projeto inverte a pedagogia tradicional: a Matemática é tratada apenas como uma ferramenta elegante para resolver **Problemas do Mundo Real**.
 
-Embora a manipulação algébrica se torne mecânica com o tempo, a **intuição geométrica frequentemente se perde**. Os estudantes aceitam que o valor numérico final da área é o mesmo, mas falham em "enxergar" por que isso acontece, já que a curva traçada pela nova função $f(u)$ e os novos limites de integração desenham uma forma geométrica completamente diferente da original no espaço $x$.
+## 🚀 O que este Simulador faz?
+O simulador permite a visualização interativa do "Jacobiano Unidimensional". Quando você troca a variável de integração de `x` para `u(x)`, o espaço "estica e encolhe". Visualizamos isso animando as fatias de Área de um gráfico para o outro, provando que a **A forma do gráfico muda brutalmente, mas a Área Total é exatamente preservada**.
 
-Falta a compreensão do papel crítico do diferencial $du$: ele não é apenas uma notação, mas um **fator de esticamento geométrico** (um Jacobiano unidimensional) que compensa a deformação do espaço.
+### ✨ Principais Recursos Educacionais
+1. **Modo História (Layman Mode):** Para não assustar o usuário, a interface inicia limpa, sem fórmulas. O aluno lê primeiro o problema real (ex: "Você tem um orçamento de Ads..."). Só depois de entender a situação ele "Invoca" as equações matemáticas para resolvê-la.
+2. **Cenários do Cotidiano:** A aplicação já vem com problemas pré-montados sobre Saúde (Filtração de Remédios), Economia (Inflação de Juros), Marketing Digital (Custo de Aquisição e Saturação) e Trânsito.
+3. **Diagrama Minimalista:** O "Monstro Algébrico" (aquela equação enorme) é abstraído visualmente para um fluxo simples: `[ Problema ∫ f(x)dx ] ➡️ [ Ponte u(x) ] ➡️ [ Solução Elegante ∫ g(u)du ]`.
+4. **Animação Lúdica:** Os retângulos de Riemann "voam" de um gráfico para o outro, mostrando como o "diferencial de velocidade" da função deforma a largura do tempo.
 
-## 💡 A Solução (O que o projeto faz)
-**"O Deformador de Áreas"** é uma ferramenta de simulação visual e interativa desenhada especificamente para preencher essa lacuna cognitiva. 
+## 🛠️ Tecnologias Utilizadas
+- **100% Frontend (HTML, CSS, JS puros)**
+- **Nenhum Servidor Necessário:** Roda imediatamente em qualquer navegador e celular.
+- **Math.js:** Para Árvores de Sintaxe (AST) e Derivações Simbólicas instantâneas (derivada do Jacobiano $du$).
+- **KaTeX:** Motor de renderização rápida em TeX para exibir fórmulas estéticas na tela.
+- **Canvas API:** Renderização nativa otimizada a 60fps para milhares de "Retângulos de Riemann".
 
-Construído inteiramente no navegador com tecnologias web puras (HTML5 Canvas, CSS moderno e JavaScript) e impulsionado por um motor algébrico (`math.js`), o software apresenta duas visões lado a lado:
-1. **Janela A (Espaço $x$)**: Mostra o formato da função original, que muitas vezes é irregular e contraintuitiva.
-2. **Janela B (Espaço $u$)**: Mostra o novo espaço transformado, onde a função geralmente foi simplificada.
+## 📦 Como Executar
+1. O projeto não possui dependências Node.js.
+2. Simplesmente abra o arquivo `index.html` em seu navegador.
+3. (Opcional) Use a extensão *Live Server* do VSCode se desejar editar o código localmente.
 
-### A Magia do *Morphing*
-Em vez de apresentar apenas o "antes" e o "depois", o software preenche o vazio do entendimento através de uma **animação de *morphing* fluida**. Ao clicar em "Animar", os blocos (Retângulos de Riemann) que compõem a área no espaço $x$ se desprendem e viajam para o espaço $u$. 
+## 📱 Responsividade (Mobile-First)
+A UI foi arquitetada usando *CSS Flexbox* flexível. Em dispositivos móveis, a disposição Lado-a-Lado dos gráficos sofre um empilhamento em Coluna automático, e a seta de transição ($u(x)$) gira 90 graus apontando para baixo, garantindo que o fluxo lógico da matemática acompanhe a rolagem de tela do usuário.
 
-Durante essa viagem geométrica interativa, o usuário observa que:
-- A altura dos retângulos muda de acordo com a nova função.
-- A **largura** dos retângulos é "esticada" ou "esmagada" de acordo com o peso da derivada ($du = u'(x) \cdot dx$). 
-- Ao final, as duas áreas provam ser exatamente idênticas, compensando largura por altura.
-
-## ✨ Principais Funcionalidades
-- **Entrada Dinâmica de Funções**: O usuário não é refém de exemplos fixos. É possível digitar qualquer substituição $u(x)$ e função alvo $g(u)$. O sistema calcula as derivadas simbolicamente em tempo real.
-- **Cenários Interdisciplinares (Presets)**: O simulador não se prende apenas à matemática abstrata. Através de um menu interativo, o usuário pode carregar problemas do mundo real de diversas profissões, como:
-  - **Economia e Finanças**: Compreender o derretimento do poder de compra devido aos juros compostos e inflação.
-  - **Marketing Digital**: Visualizar a saturação do Custo de Aquisição de Cliente e o retorno marginal decrescente.
-  - **Física (Energia)**: Visualizar o cálculo de Trabalho de uma mola não-linear.
-  - **Estatística (Probabilidade)**: Entender a deformação da Função Densidade de Probabilidade (PDF) na transformação de variáveis aleatórias.
-  - **Engenharia e Saúde**: Modelar o consumo de combustível por quilômetro vs tempo, ou a filtração de medicamentos nos rins, provando como o Jacobiano $du$ age na vida real.
-- **Renderização Matemática Impecável**: Todo o texto algébrico, desde as etiquetas dos gráficos até os painéis de texto explicativos (que mudam de acordo com o cenário escolhido), é renderizado dinamicamente com **KaTeX**, proporcionando uma tipografia clássica de livros de matemática.
-- **Hover Analítico**: Passar o mouse sobre qualquer retângulo da simulação abre um "Raio-X" daquela fatia exata de área, dissecando seus valores em tempo real.
-- **Interface *Light Theme* Premium**: Cores vibrantes, alta legibilidade, elementos de *glassmorphism* (vidro translúcido) e um layout espaçoso para um ambiente de aprendizado moderno e sem distrações.
-
-## 🚀 Motivação
-A principal motivação deste projeto é **democratizar e modernizar a visualização matemática**. Acredita-se que o rigor da matemática não precisa ser estático. Ao colocar a geometria do Cálculo nas mãos do usuário — permitindo-lhe controlar o número de retângulos, o tempo, os limites de integração e as próprias funções — transformamos fórmulas abstratas em objetos tangíveis.
-
-O "Deformador de Áreas" não busca substituir o ensino clássico, mas sim servir como a ponte visual definitiva para que o estudante finalmente diga: *"Ah, agora eu enxerguei o que o $du$ está fazendo!"*
+## 🤝 Autor e Agradecimentos
+Construído para aproximar a beleza da Matemática Avançada (Cálculo) da vida de pessoas de qualquer área (Negócios, Economia, Biologia).
