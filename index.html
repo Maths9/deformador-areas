@@ -31,33 +31,54 @@
         </div>
     </header>
 
-    <!-- Math inputs bar -->
-    <section id="math-inputs">
-        <div class="inputs-glass">
-            <div class="preset-group">
+    <!-- Story Mode & Scenario Selector -->
+    <section id="story-section">
+        <div class="story-glass">
+            <div class="preset-header">
+                <span class="preset-label">Escolha um Cenário:</span>
                 <select id="preset-select" class="preset-select">
                     <option value="math">📐 Matemática Pura</option>
-                    <option value="physics">⚛️ Física (Energia)</option>
-                    <option value="stats">📊 Estatística (PDF)</option>
                     <option value="traffic">🚗 Dia a Dia (Trânsito/Consumo)</option>
                     <option value="health">💊 Dia a Dia (Saúde/Remédio)</option>
                     <option value="economy">📈 Economia (Inflação/Juros)</option>
                     <option value="marketing">🎯 Marketing Digital (Campanhas)</option>
                 </select>
             </div>
-            <div class="input-inline-group">
-                <label for="input-u" id="label-input-u">u(x) = </label>
-                <input type="text" id="input-u" value="x^2" class="math-input" autocomplete="off" spellcheck="false">
+            <div id="story-panel" class="story-panel">
+                <div id="story-text" class="story-text">
+                    <!-- Text injected by JS -->
+                </div>
+                <button id="btn-reveal-math" class="btn btn-primary btn-reveal">
+                    Gerar Modelo Matemático
+                </button>
             </div>
-            <div class="input-inline-group">
-                <label for="input-g" id="label-input-g">g(u) = </label>
-                <input type="text" id="input-g" value="cos(u)" class="math-input" autocomplete="off" spellcheck="false">
-            </div>
-            <button id="btn-apply-math" class="btn btn-primary btn-sm" title="Atualizar funções">
-                Atualizar Funções
-            </button>
         </div>
     </section>
+
+    <!-- Math & Canvas Content (Hidden initially in Story Mode) -->
+    <div id="math-content" class="math-content hidden">
+        <!-- Math inputs bar -->
+        <section id="math-inputs">
+                <div class="inputs-glass">
+                <div class="input-inline-group">
+                    <label for="input-u" id="label-input-u">u(x) = </label>
+                    <input type="text" id="input-u" value="x^2" class="math-input" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="input-inline-group">
+                    <label for="input-g" id="label-input-g">g(u) = </label>
+                    <input type="text" id="input-g" value="cos(u)" class="math-input" autocomplete="off" spellcheck="false">
+                </div>
+                <button id="btn-apply-math" class="btn btn-primary btn-sm" title="Atualizar funções">
+                    Atualizar Funções
+                </button>
+            </div>
+            <div class="quick-examples-container" id="quick-examples">
+                <span class="quick-label">Testar Exemplos:</span>
+                <button class="badge-example" data-u="sin(x)" data-g="e^u">sin(x) & e^u</button>
+                <button class="badge-example" data-u="log(x)" data-g="1/u">log(x) & 1/u</button>
+                <button class="badge-example" data-u="x^3-x" data-g="u^2+1">x³-x & u²+1</button>
+            </div>
+        </section>
 
     <!-- Main formula bar -->
     <section id="formula-bar">
@@ -89,7 +110,7 @@
     <main id="canvas-container">
         <div class="canvas-panel" id="panel-x">
             <div class="panel-header">
-                <div class="panel-badge badge-x">Espaço x</div>
+                <div class="panel-badge badge-x" id="badge-x">Espaço x</div>
                 <div class="panel-info" id="area-x">Área ≈ <span>—</span></div>
             </div>
             <canvas id="canvas-x" width="700" height="450"></canvas>
@@ -112,7 +133,7 @@
 
         <div class="canvas-panel" id="panel-u">
             <div class="panel-header">
-                <div class="panel-badge badge-u">Espaço u</div>
+                <div class="panel-badge badge-u" id="badge-u">Espaço u</div>
                 <div class="panel-info" id="area-u">Área ≈ <span>—</span></div>
             </div>
             <canvas id="canvas-u" width="700" height="450"></canvas>
@@ -213,6 +234,7 @@
             </div>
         </div>
     </div>
+    </div> <!-- End math-content -->
 
     <script src="app.js"></script>
 </body>

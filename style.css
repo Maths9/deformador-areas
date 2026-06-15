@@ -157,6 +157,91 @@ body {
 }
 
 /* ========================================
+   STORY MODE / PRESET SELECTOR
+   ======================================== */
+#story-section {
+    position: relative;
+    z-index: 20;
+    padding: var(--space-xl) var(--space-xl) 0;
+}
+
+.story-glass {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: var(--space-xl);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+.preset-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.preset-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xl);
+}
+
+.story-text p {
+    margin-bottom: var(--space-sm);
+}
+
+.story-text strong {
+    color: var(--accent-violet);
+}
+
+.btn-reveal {
+    font-size: 1.05rem;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-reveal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+}
+
+.math-content {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.math-content.hidden {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute; /* So it doesn't take up space when hidden */
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+/* ========================================
    MATH INPUTS BAR
    ======================================== */
 #math-inputs {
@@ -178,6 +263,41 @@ body {
     border-radius: var(--radius-lg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+}
+
+.quick-examples-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.quick-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 4px;
+}
+
+.badge-example {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--accent-violet);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.badge-example:hover {
+    background: rgba(124, 58, 237, 0.2);
+    transform: translateY(-1px);
 }
 
 .preset-group {

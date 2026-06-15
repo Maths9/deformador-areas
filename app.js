@@ -42,6 +42,8 @@
     // ──────────────────────────────────────
     const PRESETS = {
         math: {
+            badgeX: "Espaço x",
+            badgeU: "Espaço u",
             uLabel: "Substituição u(x) =",
             gLabel: "Nova Função g(u) =",
             u: "x^2",
@@ -64,56 +66,18 @@
                     <h3>🎯 Resultado</h3>
                     <p>Duas figuras com <em>geometrias completamente diferentes</em>, mas com <strong>exatamente a mesma área</strong>. A substituição redistribui a "massa geométrica" sem perder nem ganhar nada.</p>
                 </div>
+            `,
+            storyHTML: `
+                <p><strong>A Matemática Pura:</strong></p>
+                <p>Neste cenário abstrato, você explora o fundamento da integração por substituição.</p>
+                <p>Em vez de lidar com formas irregulares, aplicamos uma transformação de variável que "desamassa" o gráfico, preservando exatamente a mesma área matemática pura.</p>
             `
         },
-        physics: {
-            uLabel: "Energia Potencial u(x) =",
-            gLabel: "Força Residual g(u) =",
-            u: "x^2",
-            g: "e^(-u)",
-            a: 0,
-            b: 1.5,
-            rects: 15,
-            getTheoryHTML: (ms) => `
-                <div class="theory-card">
-                    <h3>⚡ Energia Potencial Não-Linear</h3>
-                    <p>Imagine uma mola cuja energia varia com \\( u = ${ms.texU} \\). A força exercida é o trabalho realizado ao longo do espaço \\( x \\). O diferencial de energia é \\( du = \\left(${ms.texDu}\\right)dx \\).</p>
-                </div>
-                <div class="theory-card">
-                    <h3>📏 O Espaço de Energia</h3>
-                    <p>No gráfico da esquerda (Espaço X), a curva mostra a força variável. A área sob a curva é o <strong>Trabalho Total</strong> (Joules).</p>
-                    <p>Ao mudar para o Espaço U (Energia), a curva mostra como o sistema se comporta de forma mais simples (a força decai exponencialmente com a energia), mas a área total continua sendo exatamente a mesma energia transferida!</p>
-                </div>
-                <div class="theory-card">
-                    <h3>🎯 Resultado</h3>
-                    <p>O "fator de esticamento" \\( ${ms.texDu} \\) converteu os pequenos incrementos de distância (\\( \\Delta x \\)) em pequenos incrementos de energia potencial (\\( \\Delta u \\)). A física se preserva!</p>
-                </div>
-            `
-        },
-        stats: {
-            uLabel: "Nova Variável u(x) =",
-            gLabel: "Densidade PDF g(u) =",
-            u: "x^2",
-            g: "e^(-u)",
-            a: 0,
-            b: 2.0,
-            rects: 20,
-            getTheoryHTML: (ms) => `
-                <div class="theory-card">
-                    <h3>🎲 Transformação de Variáveis Aleatórias</h3>
-                    <p>Seja \\( X \\) uma variável aleatória. Se criarmos uma nova variável \\( U = ${ms.texU} \\), a Função Densidade de Probabilidade (PDF) precisa mudar de formato para que a probabilidade total continue sendo 100%.</p>
-                </div>
-                <div class="theory-card">
-                    <h3>📏 Conservação da Probabilidade</h3>
-                    <p>No espaço X (esquerda), a área sob a curva de Rayleigh representa a probabilidade de um evento. Se trocarmos a variável para \\( u \\), a curva se transforma em uma distribuição Exponencial. O diferencial \\( du = \\left(${ms.texDu}\\right)dx \\) nos obriga a ajustar a "altura" da distribuição para compensar a largura da base.</p>
-                </div>
-                <div class="theory-card">
-                    <h3>🎯 Resultado</h3>
-                    <p>A área total nos dois gráficos é idêntica! Isso explica geometricamente por que a transformação de densidades na Estatística exige multiplicar pelo Jacobiano: para que nenhuma probabilidade seja "criada ou destruída" por acidente!</p>
-                </div>
-            `
-        },
+
+
         traffic: {
+            badgeX: "Espaço X (Tempo em Horas)",
+            badgeU: "Espaço U (Distância em km)",
             uLabel: "Distância km u(x) =",
             gLabel: "Consumo L/km g(u) =",
             u: "x^2 + 0.5*x",
@@ -136,9 +100,16 @@
                     <h3>🎯 O Tanque de Gasolina</h3>
                     <p>A "área" nos dois gráficos é a mesma: é o total de <strong>Litros de Gasolina Consumidos</strong>. O diferencial \\( du \\) (a velocidade do carro) "estica" os retângulos de tempo porque quando o carro está muito rápido, ele percorre muitos quilômetros em um intervalo de tempo minúsculo!</p>
                 </div>
+            `,
+            storyHTML: `
+                <p><strong>Problema Real: Trânsito e Combustível</strong></p>
+                <p>Você está analisando uma viagem de carro que dura 2 horas (eixo do Tempo X, onde x vai de 0 a 2). Seu objetivo é descobrir o total de gasolina gasta na viagem.</p>
+                <p>O desafio é que o medidor do carro não gasta gasolina por "hora", ele gasta por "Distância percorrida (km)". Como transformar uma métrica de tempo em uma métrica de consumo de quilometragem? A resposta é o fator de deformação: a <strong>Velocidade</strong> do carro.</p>
             `
         },
         health: {
+            badgeX: "Espaço X (Tempo em Horas)",
+            badgeU: "Espaço U (Sangue Filtrado L)",
             uLabel: "Sangue Filtrado u(x) =",
             gLabel: "Concentração g(u) =",
             u: "x^2",
@@ -160,9 +131,16 @@
                     <h3>🎯 Dose Acumulada</h4>
                     <p>A substituição prova que a quantidade de remédio que sai do corpo (a Área) não depende apenas do relógio (tempo \\( x \\)), mas da <em>eficiência do rim</em> (o fator \\( du \\)). Um retângulo largo de tempo pode ser encolhido se o rim estiver trabalhando lentamente naquela hora!</p>
                 </div>
+            `,
+            storyHTML: `
+                <p><strong>Problema Real: Farmacologia</strong></p>
+                <p>Você ministrou 15mg de um medicamento em um paciente. O objetivo é saber quanto dessa droga já foi expulsa do corpo (Área Total) nas primeiras 1.8 horas de observação (Eixo X).</p>
+                <p>O problema da biologia é que a toxina não sai em ritmo constante pelo relógio; ela depende de quantos Litros de sangue os rins filtraram. Como o rim humano trabalha mais forte em alguns momentos e relaxa em outros, o tempo cronológico é "deformado" pela Taxa de Filtração Renal!</p>
             `
         },
         economy: {
+            badgeX: "Espaço X (Tempo em Anos)",
+            badgeU: "Espaço U (Inflação/Juros)",
             uLabel: "Inflação/Juros u(x) =",
             gLabel: "Poder de Compra g(u) =",
             u: "e^(0.6*x)",
@@ -184,9 +162,16 @@
                     <h3>🎯 A Riqueza Real</h3>
                     <p>No espaço U (direita), vemos a economia do ponto de vista do <em>Dinheiro</em>, não do relógio. Os retângulos finais são muito mais largos, porque nos últimos anos os juros compostos inflaram os números brutos absurdamente, compensando a queda vertical do poder de compra. A área total (sua Riqueza Real acumulada) permanece exata e matematicamente protegida!</p>
                 </div>
+            `,
+            storyHTML: `
+                <p><strong>Problema Real: Economia Financeira</strong></p>
+                <p>Você investiu dinheiro em um fundo e está projetando os rendimentos para os próximos 2 anos (Eixo X). Graças aos Juros Compostos, o volume nominal de dinheiro na sua conta explode de forma exponencial.</p>
+                <p>No entanto, a inflação corrói ferozmente o valor de cada nota. A "Riqueza Real" é a área do gráfico. Para os economistas, o tempo cronológico não importa, o que importa é o "Tempo Financeiro" distorcido pelo Fator de Inflação.</p>
             `
         },
         marketing: {
+            badgeX: "Espaço X (Orçamento de Ads)",
+            badgeU: "Espaço U (Cliques Obtidos)",
             uLabel: "Cliques Gerados u(x) =",
             gLabel: "Lucro/Clique g(u) =",
             u: "4*log(x+1)",
@@ -208,6 +193,11 @@
                     <h3>💰 O Lucro Total da Campanha</h3>
                     <p>No espaço U (direita), os retângulos finais ficam espremidos! Isso prova visualmente o pesadelo do Marketing Digital: retângulos enormes de orçamento extra (Espaço X) são violentamente achatados pelo Jacobiano em míseros milímetros de cliques novos (Espaço U), destruindo a ilusão de crescimento infinito.</p>
                 </div>
+            `,
+            storyHTML: `
+                <p><strong>Problema Real: Marketing Digital</strong></p>
+                <p>Sua agência possui um orçamento de até <strong>R$ 4.000,00</strong> (Eixo X vai de 0 a 4) para injetar em uma campanha de anúncios online hoje. O seu objetivo é extrair a "Área" desse investimento, que é o Lucro Máximo gerado por todos os clientes atingidos.</p>
+                <p>Mas você enfrenta o pesadelo da <strong>Saturação de Público</strong>: injetar os primeiros mil reais traz milhares de cliques. Mas injetar o quarto milheiro de reais traz pouquíssimos usuários novos. O "Custo de Aquisição" deforma o valor do seu dinheiro na reta final da campanha, achatando violentamente os seus lucros!</p>
             `
         }
     };
@@ -1006,20 +996,25 @@
         if (!window.katex) return;
 
         try {
+            // Visual Simplification: Instead of the monster f(x) expanded, just show f(x) conceptually
             katex.render(
-                '\\int_{' + a.toFixed(1) + '}^{' + b.toFixed(1) + '} ' + mathState.texF + '\\,dx',
+                '\\int_{' + a.toFixed(1) + '}^{' + b.toFixed(1) + '} f(x)\\,dx',
                 mathX,
                 { throwOnError: false, displayMode: false }
             );
+            
+            // g(u) is usually short and elegant, so we can show it
             katex.render(
                 '\\int_{' + uA.toFixed(2) + '}^{' + uB.toFixed(2) + '} ' + mathState.texG + '\\,du',
                 mathU,
                 { throwOnError: false, displayMode: false }
             );
 
-            document.getElementById('arrow-label-u').textContent = 'u = ' + mathState.strU;
+            // The bridge is the substitution and the Jacobian
+            katex.render('u = ' + mathState.texU, document.getElementById('arrow-label-u'), { throwOnError: false, displayMode: false });
             
-            katex.render('f(x) \\approx ' + mathState.texF, document.getElementById('label-fx'), { throwOnError: false, displayMode: false });
+            // Axis labels (keep them simple)
+            katex.render('f(x)', document.getElementById('label-fx'), { throwOnError: false, displayMode: false });
             katex.render('g(u) = ' + mathState.texG, document.getElementById('label-gu'), { throwOnError: false, displayMode: false });
 
         } catch (e) {
@@ -1094,6 +1089,20 @@
     if (btnApplyMath) {
         btnApplyMath.addEventListener('click', updateMathFunctions);
     }
+
+    // Quick examples
+    document.querySelectorAll('.badge-example').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const inputU = document.getElementById('input-u');
+            const inputG = document.getElementById('input-g');
+            if(inputU && inputG) {
+                inputU.value = this.getAttribute('data-u');
+                inputG.value = this.getAttribute('data-g');
+                updateMathFunctions();
+            }
+        });
+    });
+
     sliderRects.addEventListener('input', function () {
         state.numRects = parseInt(sliderRects.value);
         valRects.textContent = state.numRects;
@@ -1213,8 +1222,13 @@
         
         const lblU = document.getElementById('label-input-u');
         const lblG = document.getElementById('label-input-g');
+        const badgeX = document.getElementById('badge-x');
+        const badgeU = document.getElementById('badge-u');
+
         if (lblU && preset.uLabel) lblU.textContent = preset.uLabel;
         if (lblG && preset.gLabel) lblG.textContent = preset.gLabel;
+        if (badgeX && preset.badgeX) badgeX.textContent = preset.badgeX;
+        if (badgeU && preset.badgeU) badgeU.textContent = preset.badgeU;
 
         document.getElementById('input-u').value = preset.u;
         document.getElementById('input-g').value = preset.g;
@@ -1225,8 +1239,42 @@
         state.numRects = preset.rects;
         state.intervalA = preset.a;
         state.intervalB = preset.b;
+
+        // Story Mode Logic
+        const storyText = document.getElementById('story-text');
+        const mathContent = document.getElementById('math-content');
+        const btnReveal = document.getElementById('btn-reveal-math');
+
+        if (storyText && preset.storyHTML) {
+            storyText.innerHTML = preset.storyHTML;
+        }
+
+        if (mathContent) {
+            mathContent.classList.add('hidden');
+        }
+        if (btnReveal) {
+            btnReveal.style.display = 'inline-block';
+        }
         
         updateMathFunctions();
+    }
+
+    const btnRevealMath = document.getElementById('btn-reveal-math');
+    if (btnRevealMath) {
+        btnRevealMath.addEventListener('click', () => {
+            const mathContent = document.getElementById('math-content');
+            if (mathContent) {
+                mathContent.classList.remove('hidden');
+            }
+            btnRevealMath.style.display = 'none';
+            
+            setTimeout(() => {
+                const mathInputs = document.getElementById('math-inputs');
+                if (mathInputs) {
+                    mathInputs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        });
     }
 
     if (presetSelect) {
